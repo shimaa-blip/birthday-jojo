@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Jojo</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    min-height:100vh;
+    overflow:hidden;
+    text-align:center;
+}
+
+/* Countdown */
+#countdown{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:9999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+#matrix{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+#countNumber{
+    position:relative;
+    z-index:2;
+    font-size:120px;
+    color:#8b0000;
+    font-weight:bold;
+    text-shadow:0 0 20px #8b0000,0 0 55px #b30000;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(.8);opacity:.5}
+    50%{transform:scale(1.2);opacity:1}
+    100%{transform:scale(.8);opacity:.5}
+}
+
+/* Main */
+.container{
+    position:relative;
+    z-index:5;
+    padding-top:45px;
+}
+
+h1{
+    font-size:52px;
+    font-weight:600;
+    color:#8b0000;
+    text-shadow:0 0 20px #8b0000,0 0 45px #5a0000;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    font-size:15px;
+    letter-spacing:2px;
+    color:#ddd;
+    margin-bottom:20px;
+}
+
+.cake-wrap{
+    width:360px;
+    margin:0 auto 20px;
+    animation:softMove 3s ease-in-out infinite alternate;
+}
+
+@keyframes softMove{
+    from{transform:translateY(0)}
+    to{transform:translateY(-8px)}
+}
+
+svg{
+    width:100%;
+    filter:drop-shadow(0 20px 25px rgba(139,0,0,.25));
+}
+
+.line{
+    fill:none;
+    stroke:#8b0000;
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.candle{
+    transform-origin:center bottom;
+    animation:candleMove 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes candleMove{
+    from{transform:rotate(-2deg)}
+    to{transform:rotate(2deg)}
+}
+
+.flame{
+    fill:#ff4500;
+    animation:flame .45s infinite alternate;
+    transform-origin:center;
+    filter:drop-shadow(0 0 10px #ff0000);
+}
+
+@keyframes flame{
+    from{transform:scale(1);opacity:.8}
+    to{transform:scale(1.25);opacity:1}
+}
+
+button{
+    background:#8b0000;
+    color:white;
+    border:none;
+    padding:13px 35px;
+    border-radius:30px;
+    font-size:16px;
+    letter-spacing:1px;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(139,0,0,.8);
+}
+
+button:hover{transform:scale(1.04)}
+
+/* Popup card */
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    width:340px;
+    background:#fff;
+    color:#8b0000;
+    padding:35px 25px;
+    border-radius:25px;
+    z-index:100;
+    box-shadow:0 0 50px rgba(139,0,0,.7);
+    transition:.4s;
+}
+
+.popup.show{
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.close-btn{
+    position:absolute;
+    top:12px;
+    right:15px;
+    background:#8b0000;
+    color:white;
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    font-size:18px;
+    cursor:pointer;
+    padding:0;
+}
+
+.popup h2{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.popup p{
+    color:#333;
+    font-size:16px;
+    line-height:1.8;
+}
+
+/* Hearts - iPhone emoji style */
+.heart{
+    position:absolute;
+    bottom:-50px;
+    font-size:28px;
+    line-height:1;
+    animation:heartUp 7s linear infinite;
+    z-index:1;
+    filter:drop-shadow(0 0 6px rgba(139,0,0,.45));
+}
+
+@keyframes heartUp{
+    0%{transform:translateY(0) scale(.8);opacity:0}
+    20%{opacity:1}
+    50%{transform:translateY(-55vh) scale(1.15)}
+    100%{transform:translateY(-110vh) scale(.9);opacity:0}
+}
+
+/* Balloons */
+.balloon{
+    position:absolute;
+    bottom:-100px;
+    width:42px;
+    height:55px;
+    background:#8b0000;
+    border-radius:50% 50% 45% 45%;
+    animation:balloonUp 10s linear infinite;
+    z-index:1;
+}
+
+.balloon::before{
+    content:"";
+    position:absolute;
+    width:12px;
+    height:8px;
+    background:inherit;
+    bottom:-4px;
+    left:15px;
+    transform:rotate(45deg);
+}
+
+.balloon::after{
+    content:"";
+    position:absolute;
+    width:1.5px;
+    height:45px;
+    background:white;
+    bottom:-45px;
+    left:50%;
+}
+
+@keyframes balloonUp{
+    from{transform:translateY(0)}
+    to{transform:translateY(-120vh)}
+}
+
+/* Confetti */
+.confetti{
+    position:absolute;
+    top:-20px;
+    width:8px;
+    height:14px;
+    animation:fall 4s linear infinite;
+    z-index:50;
+}
+
+@keyframes fall{
+    from{transform:translateY(-10vh) rotate(0deg)}
+    to{transform:translateY(110vh) rotate(360deg)}
+}
+
+@media(max-width:480px){
+    h1{font-size:38px}
+    .cake-wrap{width:320px}
+    #countNumber{font-size:95px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="countdown">
+    <canvas id="matrix"></canvas>
+    <div id="countNumber">3</div>
+</div>
+
+<div class="container">
+    <h1>Happy Birthday Jojo</h1>
+    <div class="subtitle">do you want to see your gift?</div>
+
+    <div class="cake-wrap">
+        <svg viewBox="0 0 400 360">
+            <g class="candle">
+                <path class="line" d="M120 80 L120 140"/>
+                <path class="line" d="M150 60 L150 135"/>
+                <path class="line" d="M180 75 L180 135"/>
+                <path class="line" d="M215 55 L215 135"/>
+                <path class="line" d="M250 75 L250 140"/>
+                <path class="line" d="M280 65 L280 145"/>
+
+                <path class="flame" d="M120 45 C105 62 113 75 120 78 C130 70 135 58 120 45"/>
+                <path class="flame" d="M150 25 C135 45 143 58 150 62 C162 50 165 38 150 25"/>
+                <path class="flame" d="M180 42 C165 60 173 72 180 76 C192 65 194 53 180 42"/>
+                <path class="flame" d="M215 22 C200 42 208 55 215 60 C228 48 230 35 215 22"/>
+                <path class="flame" d="M250 43 C235 60 243 73 250 77 C262 66 264 54 250 43"/>
+                <path class="flame" d="M280 33 C265 50 273 63 280 67 C292 56 294 45 280 33"/>
+            </g>
+
+            <path class="line" d="M95 155 C95 120 130 115 145 130 C160 105 200 110 205 135 C225 110 265 120 260 150 C295 145 315 170 300 195 C325 215 300 250 260 235 C240 260 195 250 190 230 C165 255 120 240 125 210 C90 210 70 175 95 155"/>
+            <path class="line" d="M105 195 C110 230 125 230 130 195"/>
+            <path class="line" d="M150 200 C155 245 175 240 172 200"/>
+            <path class="line" d="M205 195 C210 235 230 235 230 195"/>
+            <path class="line" d="M265 198 C270 230 288 225 285 198"/>
+            <path class="line" d="M90 195 C105 285 295 285 310 195"/>
+            <path class="line" d="M100 255 C150 295 250 295 300 255"/>
+            <path class="line" d="M120 285 C165 315 235 315 280 285"/>
+            <circle class="line" cx="135" cy="230" r="8"/>
+            <circle class="line" cx="180" cy="240" r="8"/>
+            <circle class="line" cx="225" cy="235" r="8"/>
+            <circle class="line" cx="265" cy="225" r="8"/>
+            <path class="line" d="M75 310 C120 345 280 345 325 310"/>
+            <path class="line" d="M90 318 C135 335 265 335 310 318"/>
+        </svg>
+    </div>
+
+    <button onclick="openGift()">Open Gift</button>
+</div>
+
+<div class="popup" id="popup">
+    <button class="close-btn" onclick="closeGift()">×</button>
+    <h2>Happy Birthday Jojo</h2>
+        I made this little page just for you, Jojo.<br>
+Because your birthday deserves something special.<br>
+I hope this year brings you so much happiness, love, and beautiful moments.<br>
+Happy Birthday, my sweet Jojo 🤍
+    </p>
+</div>
+
+<audio id="music" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+/* ===== MATRIX ===== */
+let canvas=document.getElementById("matrix");
+let ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="HAPPYBIRTHDAYJOJOLOVE".split("");
+let fontSize=16;
+let columns=canvas.width/fontSize;
+let drops=[];
+
+for(let i=0;i<columns;i++){drops[i]=1;}
+
+function drawMatrix(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#8b0000";
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+        let text=letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
+            drops[i]=0;
+        }
+        drops[i]++;
+    }
+}
+setInterval(drawMatrix,40);
+
+
+/* ===== MUSIC ===== */
+let music = document.getElementById("music");
+let started = false;
+
+document.addEventListener("click", () => {
+    if(!started){
+        music.volume = 0.6;
+        music.play();
+        started = true;
+    }
+});
+
+
+/* ===== COUNTDOWN ===== */
+let count=3;
+let countNumber=document.getElementById("countNumber");
+
+let timer=setInterval(function(){
+    count--;
+
+    if(count>0){
+        countNumber.innerHTML=count;
+    }else{
+        countNumber.innerHTML="🎂";
+
+        setTimeout(function(){
+            document.getElementById("countdown").style.display="none";
+        },900);
+
+        clearInterval(timer);
+    }
+},1000);
+
+
+/* ===== HEARTS ===== */
+for(let i=0;i<18;i++){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDelay=Math.random()*6+"s";
+    heart.style.fontSize=(24+Math.random()*12)+"px";
+    document.body.appendChild(heart);
+}
+
+
+/* ===== BALLOONS ===== */
+let balloonColors=["#8b0000","#5a0000","#b30000","#3b0000"];
+for(let i=0;i<8;i++){
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.background=balloonColors[Math.floor(Math.random()*balloonColors.length)];
+    b.style.animationDelay=Math.random()*8+"s";
+    b.style.animationDuration=(8+Math.random()*5)+"s";
+    document.body.appendChild(b);
+}
+/* ===== CONFETTI AUTO (مع البالونات) ===== */
+let confettiColors = ["#8b0000","#b30000","#ffffff","#ff4d6d"];
+
+for(let i=0;i<40;i++){
+    let c = document.createElement("div");
+    c.className = "confetti";
+
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
+    c.style.animationDelay = Math.random()*5 + "s";
+    c.style.animationDuration = (4 + Math.random()*4) + "s";
+
+    document.body.appendChild(c);
+}
+
+/* ===== CONFETTI (قصاصات) ===== */
+function createConfetti(){
+    let colors=["#8b0000","#b30000","#ffffff","#ff4d6d"];
+
+    for(let i=0;i<120;i++){
+        let c=document.createElement("div");
+        c.className="confetti";
+
+        c.style.left=Math.random()*100+"vw";
+        c.style.background=colors[Math.floor(Math.random()*colors.length)];
+        c.style.animationDelay=Math.random()*2+"s";
+        c.style.animationDuration=(3+Math.random()*3)+"s";
+
+        document.body.appendChild(c);
+    }
+}
+
+
+/* ===== GIFT ===== */
+function openGift(){
+    document.getElementById("popup").classList.add("show");
+
+    music.play(); // يتأكد يشتغل
+
+    createConfetti(); // 🎊 القصاصات
+}
+
+function closeGift(){
+    document.getElementById("popup").classList.remove("show");
+}
+
+</script>
+</script>
+
+</body>
+</html>
