@@ -17,7 +17,7 @@ body{
     text-align:center;
 }
 
-/* Countdown */
+
 #countdown{
     position:fixed;
     inset:0;
@@ -52,7 +52,7 @@ body{
     100%{transform:scale(.8);opacity:.5}
 }
 
-/* Main */
+
 .container{
     position:relative;
     z-index:5;
@@ -134,7 +134,7 @@ button{
 
 button:hover{transform:scale(1.04)}
 
-/* Popup card */
+
 .popup{
     position:fixed;
     top:50%;
@@ -180,7 +180,7 @@ button:hover{transform:scale(1.04)}
     line-height:1.8;
 }
 
-/* Hearts - iPhone emoji style */
+
 .heart{
     position:absolute;
     bottom:-50px;
@@ -198,7 +198,7 @@ button:hover{transform:scale(1.04)}
     100%{transform:translateY(-110vh) scale(.9);opacity:0}
 }
 
-/* Balloons */
+
 .balloon{
     position:absolute;
     bottom:-100px;
@@ -236,7 +236,7 @@ button:hover{transform:scale(1.04)}
     to{transform:translateY(-120vh)}
 }
 
-/* Confetti */
+
 .confetti{
     position:absolute;
     top:-20px;
@@ -325,7 +325,7 @@ Happy Birthday, my sweet Jojo 🤍
 
 <script>
 
-/* ===== MATRIX ===== */
+
 let canvas=document.getElementById("matrix");
 let ctx=canvas.getContext("2d");
 
@@ -359,7 +359,7 @@ function drawMatrix(){
 setInterval(drawMatrix,40);
 
 
-/* ===== MUSIC ===== */
+
 let music = document.getElementById("music");
 let started = false;
 
@@ -372,7 +372,7 @@ document.addEventListener("click", () => {
 });
 
 
-/* ===== COUNTDOWN ===== */
+
 let count=3;
 let countNumber=document.getElementById("countNumber");
 
@@ -393,7 +393,7 @@ let timer=setInterval(function(){
 },1000);
 
 
-/* ===== HEARTS ===== */
+
 for(let i=0;i<18;i++){
     let heart=document.createElement("div");
     heart.className="heart";
@@ -405,7 +405,7 @@ for(let i=0;i<18;i++){
 }
 
 
-/* ===== BALLOONS ===== */
+
 let balloonColors=["#8b0000","#5a0000","#b30000","#3b0000"];
 for(let i=0;i<8;i++){
     let b=document.createElement("div");
@@ -416,7 +416,6 @@ for(let i=0;i<8;i++){
     b.style.animationDuration=(8+Math.random()*5)+"s";
     document.body.appendChild(b);
 }
-/* ===== CONFETTI AUTO (مع البالونات) ===== */
 let confettiColors = ["#8b0000","#b30000","#ffffff","#ff4d6d"];
 
 for(let i=0;i<40;i++){
@@ -431,7 +430,7 @@ for(let i=0;i<40;i++){
     document.body.appendChild(c);
 }
 
-/* ===== CONFETTI (قصاصات) ===== */
+
 function createConfetti(){
     let colors=["#8b0000","#b30000","#ffffff","#ff4d6d"];
 
@@ -449,13 +448,13 @@ function createConfetti(){
 }
 
 
-/* ===== GIFT ===== */
+
 function openGift(){
     document.getElementById("popup").classList.add("show");
 
     music.play(); // يتأكد يشتغل
 
-    createConfetti(); // 🎊 القصاصات
+    createConfetti(); 
 }
 
 function closeGift(){
